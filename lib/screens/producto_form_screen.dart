@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_clase1_actividad2/models/producto.dart';
+import 'package:flutter_application_clase1_actividad2/providers/producto_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProductoFormScreen extends StatefulWidget {
   const ProductoFormScreen({Key? key}) : super(key: key);
@@ -17,6 +20,7 @@ class _ProductoFormScreen extends State<ProductoFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productoProvider = Provider.of<ProductoProvider>(context);
     final txtDescripcion = TextEditingController();
     final txtPrecio = TextEditingController();
 
@@ -124,8 +128,16 @@ class _ProductoFormScreen extends State<ProductoFormScreen> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Validando...")),
-                      );
+                          const SnackBar(content: Text("Validando...")));
+
+                      var producto = Producto(
+                          id: '',
+                          productoId: 0,
+                          descripcion: txtDescripcion.text,
+                          precio: int.parse(txtPrecio.text));
+
+                      productoProvider.saveProducto(producto);
+
                       Navigator.pushReplacementNamed(context, "ruta_productos");
                     }
                   },

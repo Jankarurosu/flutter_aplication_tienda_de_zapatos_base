@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_clase1_actividad2/models/producto.dart';
+import 'package:flutter_application_clase1_actividad2/providers/producto_provider.dart';
 import 'package:flutter_application_clase1_actividad2/widgets/menu_lateral.dart';
+import 'package:provider/provider.dart';
 
 class ProductosScreen extends StatefulWidget {
   @override
@@ -9,88 +12,41 @@ class ProductosScreen extends StatefulWidget {
 class _ProductosScreen extends State<ProductosScreen> {
   @override
   Widget build(BuildContext context) {
+    //Llamamos al proveedor y la lista
+    final productoProvider = Provider.of<ProductoProvider>(context);
+    final List<Producto> listaProductos = productoProvider.listaProductos;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Productos"),
-      ),
+      appBar: AppBar(title: Text("Productos")),
       drawer: const MenuLateral(),
       body: Center(
-        child: ListView(
-          children: [
-            /*
-            Container(
-              height: 100,
-              color: Colors.red,
-            ),
-            Container(
-              height: 100,
-              color: Colors.blue,
-            ),
-            Container(
-              height: 100,
-              color: Colors.green,
-            ),
-            Container(
-              height: 100,
-              color: Colors.grey,
-            ),*/
-            /*ListTile(
-              title: Text("LAPTOP MACBOOK PRO"),
-              tileColor: Colors.red,
-            ),
-            ListTile(
-              title: Text("TECLADO"),
-              tileColor: Colors.blue,
-            ),
-            ListTile(
-              title: Text("MOUSE"),
-              tileColor: Colors.green[50],
-            ),*/
-            Card(
-              child: Column(children: const <Widget>[
-                ListTile(
-                  leading: Icon(Icons.card_giftcard),
-                  title: Text(
-                    "LAPTOP LENOVO",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  ),
-                  subtitle: Text(
-                    "S/. 1,500",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo),
-                  ),
-                ),
-              ]),
-            ),
-            Card(
+        child: ListView.builder(
+          itemCount: listaProductos.length,
+          itemBuilder: (context, index) {
+            return Card(
               child: Column(
-                children: const <Widget>[
+                children: [
                   ListTile(
-                    leading: Icon(Icons.card_giftcard),
                     title: Text(
-                      "TECLADO GAMER",
+                      listaProductos[index].descripcion,
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue),
+                          color: Colors.black),
                     ),
                     subtitle: Text(
-                      "S/. 100",
+                      "S/." + listaProductos[index].precio.toString(),
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.indigo),
+                          color: Colors.black),
                     ),
+                    leading: Icon(Icons.card_giftcard),
                   ),
                 ],
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
       //Boton que te dirige a otro lado
