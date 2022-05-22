@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_clase1_actividad2/providers/producto_provider.dart';
+import 'package:flutter_application_clase1_actividad2/providers/proveedores_provider.dart';
 import 'package:flutter_application_clase1_actividad2/screens/login_screen.dart';
 import 'package:flutter_application_clase1_actividad2/screens/principal_screen.dart';
 import 'package:flutter_application_clase1_actividad2/screens/producto_form_screen.dart';
 import 'package:flutter_application_clase1_actividad2/screens/productos_screen.dart';
+import 'package:flutter_application_clase1_actividad2/screens/proveedores_form_screen.dart';
 import 'package:flutter_application_clase1_actividad2/screens/proveedores_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +19,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProductoProvider(), lazy: false),
+        ChangeNotifierProvider(
+            create: (_) => ProveedoresProvider(), lazy: false),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -32,7 +36,9 @@ class MyApp extends StatelessWidget {
           //***
           "ruta_productos_form": (_) => ProductoFormScreen(),
           //Zahir Alejandro Montoya Coacalla
-          "ruta_proveedores": (_) => ProveedoresScreen()
+          "ruta_proveedores": (_) => ProveedoreScreen(),
+          //***
+          "ruta_proveedores_form": (_) => ProveedoresFormScreen(),
         },
       ),
     );

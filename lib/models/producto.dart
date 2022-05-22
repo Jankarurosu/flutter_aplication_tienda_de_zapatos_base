@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Producto {
+  //Variables
   Producto({
     required this.id,
     required this.productoId,

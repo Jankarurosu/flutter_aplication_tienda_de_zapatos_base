@@ -17,7 +17,11 @@ class _ProductosScreen extends State<ProductosScreen> {
     final List<Producto> listaProductos = productoProvider.listaProductos;
 
     return Scaffold(
-      appBar: AppBar(title: Text("Productos")),
+      appBar: AppBar(
+        title: Text("Productos"),
+        backgroundColor: Colors.black,
+        elevation: 0,
+      ),
       drawer: const MenuLateral(),
       body: Center(
         child: ListView.builder(
@@ -49,13 +53,13 @@ class _ProductosScreen extends State<ProductosScreen> {
           },
         ),
       ),
-      //Boton que te dirige a otro lado
+      //Boton que te dirige a Productos Form
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
           Navigator.pushNamed(context, "ruta_productos_form");
         },
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.black,
       ),
     );
   }

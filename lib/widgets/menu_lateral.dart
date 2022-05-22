@@ -11,7 +11,7 @@ class MenuLateral extends StatelessWidget {
             child: Text(""),
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/logo.jpeg"), fit: BoxFit.cover),
+                  image: AssetImage("assets/logo.jpg"), fit: BoxFit.cover),
             ),
           ),
           ListTile(

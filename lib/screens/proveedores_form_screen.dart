@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_clase1_actividad2/models/producto.dart';
-import 'package:flutter_application_clase1_actividad2/providers/producto_provider.dart';
+import 'package:flutter_application_clase1_actividad2/models/proveedores.dart';
+import 'package:flutter_application_clase1_actividad2/providers/proveedores_provider.dart';
 import 'package:provider/provider.dart';
 
-class ProductoFormScreen extends StatefulWidget {
-  const ProductoFormScreen({Key? key}) : super(key: key);
+class ProveedoresFormScreen extends StatefulWidget {
+  const ProveedoresFormScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProductoFormScreen> createState() => _ProductoFormScreen();
+  State<ProveedoresFormScreen> createState() => _ProveedoresFormScreen();
 }
 
-class _ProductoFormScreen extends State<ProductoFormScreen> {
+//checkbox y matchbox
+enum Categorias { computo, sonido }
+
+class _ProveedoresFormScreen extends State<ProveedoresFormScreen> {
   final _formKey = GlobalKey<FormState>();
+  Categorias? _catSeleccion = Categorias.computo;
   bool? _estadoActivo = false;
 
   @override
   Widget build(BuildContext context) {
-    final productoProvider = Provider.of<ProductoProvider>(context);
+    final proveedoresProvider = Provider.of<ProveedoresProvider>(context);
     final txtDescripcion = TextEditingController();
-    final txtPrecio = TextEditingController();
+    final txtAporte = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registro de nuevos productos"),
+        title: Text("Registro de nuevos proveedores"),
         backgroundColor: Colors.black,
         elevation: 0,
       ),
@@ -36,7 +40,8 @@ class _ProductoFormScreen extends State<ProductoFormScreen> {
                 //maxLines: 8,
                 //maxLength: 50,
                 decoration: InputDecoration(
-                  labelText: "Descripcion",
+                  hintText: 'Ingrese el nombre del proveedor',
+                  labelText: "Proveedor",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -44,7 +49,7 @@ class _ProductoFormScreen extends State<ProductoFormScreen> {
                 controller: txtDescripcion,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Por favor ingrese una descripcion";
+                    return "Por favor ingrese un proveedor";
                   }
                 },
               ),
@@ -53,15 +58,16 @@ class _ProductoFormScreen extends State<ProductoFormScreen> {
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: "Precio",
+                  hintText: 'Ingrese el aporte del proveedor',
+                  labelText: "Aporte",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
-                controller: txtPrecio,
+                controller: txtAporte,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Por favor ingrese un precio";
+                    return "Por favor ingrese un aporte";
                   }
                 },
               ),
@@ -70,21 +76,22 @@ class _ProductoFormScreen extends State<ProductoFormScreen> {
               ),
               Container(
                 child: ElevatedButton(
-                  child: const Text("GUARDAR"),
+                  child: const Text("SUBIR"),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Validando...")));
+                          const SnackBar(content: Text("Subiendo...")));
 
-                      var producto = Producto(
+                      var proveedores = Proveedore(
                           id: '',
-                          productoId: 0,
+                          proveedoresId: 0,
                           descripcion: txtDescripcion.text,
-                          precio: int.parse(txtPrecio.text));
+                          aporte: txtAporte.text);
 
-                      productoProvider.saveProducto(producto);
+                      proveedoresProvider.saveProveedores(proveedores);
 
-                      Navigator.pushReplacementNamed(context, "ruta_productos");
+                      Navigator.pushReplacementNamed(
+                          context, "ruta_proveedores");
                     }
                   },
                 ),
